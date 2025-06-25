@@ -16,28 +16,35 @@ from datetime import datetime
 
 print("Hello World")
 
-if os.path.exists('frame_cache'):
-    shutil.rmtree('./frame_cache')
-elif not os.path.exists('frame_cache'):
-    os.makedirs('frame_cache')
+print("Current working directory:", os.getcwd())
 
-if not os.path.exists('frame_cache'):
-    os.makedirs('frame_cache')
 
-if not os.path.exists('frame_video'):
-    os.makedirs('frame_video')
+if not os.path.exists('frames'):
+    os.makedirs('frames')
 
-if not os.path.exists('detection_s'):
-    os.makedirs('detection_s')
+if os.path.exists('frames/frame_cache'):
+    shutil.rmtree('frames/frame_cache')
+
+if not os.path.exists('frames/frame_cache'):
+    os.makedirs('frames/frame_cache')
+
+if not os.path.exists('frames/frame_video'):
+    os.makedirs('frames/frame_video')
+
+if not os.path.exists('frames/detection_s'):
+    os.makedirs('frames/detection_s')
     data_functions.new_json()
 
-if not os.path.exists('detection_f'):
-    os.makedirs('detection_f')
+if not os.path.exists('frames/detection_f'):
+    os.makedirs('frames/detection_f')
 
 cam = assets.cam
 
 currentFrame = 1
-totalFrames = len(os.listdir('./frame_video'))
+totalFrames = len(os.listdir('frames/frame_video'))
+frameCacheName = 'frames/frame_cache/cache.jpg'
+frameVideoName = 'frames/frame_video/frame_'
+
 sequence = 1
 
 ##User Declared:
@@ -59,11 +66,11 @@ while True:
 
         sequence = 1
 
-        cv2.imwrite('./frame_cache/frame_' + str(format(sequence, '03d')) + '.jpg', img)
+        cv2.imwrite(frameCacheName, img)
 
         image = cv2.putText(img, dtime + " " + ddate, (420, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
 
-        cv2.imwrite('./frame_video/frame_' + str(format(totalFrames, '03d')) + '.jpg', image)
+        cv2.imwrite(frameVideoName + str(format(totalFrames, '03d')) + '.jpg', image)
 
         cv2.imshow('Output', image)
 
@@ -77,11 +84,11 @@ while True:
         key = cv2.waitKey(1) & 0xFF
         ret, img = cam.read()
 
-        cv2.imwrite('./frame_cache/frame_' + str(format(sequence, '03d')) + '.jpg', img)
+        cv2.imwrite(frameCacheName, img)
 
         image = cv2.putText(img, dtime + " " + ddate, (420, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
 
-        cv2.imwrite('./frame_video/frame_' + str(format(totalFrames, '03d')) + '.jpg', image)
+        cv2.imwrite(frameVideoName + str(format(totalFrames, '03d')) + '.jpg', image)
 
         cv2.imshow('Output', image)
 

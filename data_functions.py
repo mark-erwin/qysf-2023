@@ -16,7 +16,7 @@ from datetime import datetime
 import email_functions
 
 
-file = './detection_s/data.json'
+file = 'frames/detection_s/data.json'
 
 registry = assets.registry
 cam_context = assets.cam_context
